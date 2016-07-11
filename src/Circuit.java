@@ -8,7 +8,6 @@ public class Circuit {
 	
 	public Circuit(String str){
 		String[] strCircuit = str.split(" ");
-//    	System.out.println(strCircuit[1].split("")[1]);
 
     	String temp = strCircuit[1].substring(1);
 		this.id = Integer.parseInt(temp);
@@ -26,6 +25,18 @@ public class Circuit {
     public int getId() {
         return this.id;
     }
+    
+	public int getH() {
+		return H;
+	}
+
+	public int getE() {
+		return E;
+	}
+
+	public int getP() {
+		return P;
+	}
 	
 	public void print(){
     	System.out.print("id:" + this.id);
@@ -34,7 +45,7 @@ public class Circuit {
     	System.out.println(" P:" + this.P);
 	}
 	
-    public static Hashtable<Integer, Circuit> string2CircuitHash(String str) {
+    public static Hashtable<Integer, Circuit> string2CircuitsHash(String str) {
     	
     	Hashtable<Integer, Circuit> Circuits = new Hashtable<Integer, Circuit>();
     	String[] strCircuits = str.split("\r");

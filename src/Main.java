@@ -9,9 +9,13 @@ public class Main {
     	String fileOutPut[] = file2String(fileName).split("\n\r");;
 //        System.out.println(fileOutPut[0]);
     	
-    	Hashtable<Integer, Circuit> Circuits = Circuit.string2CircuitHash(fileOutPut[0]);
-       
-    	Circuits.get(2).print();
+    	Hashtable<Integer, Circuit> Circuits 
+    		= Circuit.string2CircuitsHash(fileOutPut[0]);
+    	Hashtable<Integer, Juggler> Jugglers 
+    		= Juggler.string2JugglersHash(fileOutPut[1]);
+
+//    	Circuits.get(2).print();
+    	Jugglers.get(2).print();
 	}
 
     private static void getAllFiles(File curDir) {
