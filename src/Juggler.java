@@ -1,13 +1,14 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Juggler {
 	private int id;
 	private int H;
 	private int E;
 	private int P;
-	private ArrayList<Integer> preference = new ArrayList<Integer>();
+	private ArrayList<Circuit> preference = new ArrayList<Circuit>();
 	
-	public Juggler(String str){
+	public Juggler(String str, Hashtable<Integer, Circuit> circuits){
 		String[] strJuggler = str.split(" ");
 
     	String temp = strJuggler[1].substring(1);
@@ -25,7 +26,8 @@ public class Juggler {
     	String[] strCircuits = strJuggler[5].split(",");
         for (String strCircuit : strCircuits) {
         	int circuitId = Integer.parseInt(strCircuit.substring(1));
-        	this.preference.add(circuitId);
+        	Circuit targetCircuit = circuits.get(circuitId);
+        	this.preference.add(targetCircuit);
          }
 	}
 	
@@ -43,24 +45,44 @@ public class Juggler {
 
 	public int getP() {
 		return P;
-}
-	
-	public void print(){
-    	System.out.print("id:" + this.id);
-    	System.out.print(" H:" + this.H);
-    	System.out.print(" E:" + this.E);
-    	System.out.print(" P:" + this.P);
-    	System.out.print(" " + this.preference);
-    	System.out.println();
 	}
 	
-    public static Hashtable<Integer, Juggler> string2JugglersHash(String str) {
+	public ArrayList<Circuit> getPreference(){
+		return this.preference;
+	}
+	
+	public String getScore(){
+		return 	"J" + this.id + " " +
+				this.preference.stream()
+				.map( circuit ->
+					"C" + circuit.getId() + ":" + circuit.scoreJuggler(this))
+				.collect(Collectors.joining(" "));
+	}
+	
+	public void print2(){
+		System.out.print(
+				"J" + this.id + " " + this.getScore()
+				);
+	}
+	
+	public void print(){
+//		for(Circuit circuit : this.preference){
+//			System.out.print(
+//					"C"+ circuit.getId() + ":" + circuit.scoreJuggler(this)
+//					);
+//		}
+    	System.out.println("J" + this.id);
+	}
+	
+    public static Hashtable<Integer, Juggler> string2JugglersHash(
+    		String str, 
+    		Hashtable<Integer, Circuit> circuits) {
     	
     	Hashtable<Integer, Juggler> Jugglers = new Hashtable<Integer, Juggler>();
     	String[] strJugglers = str.split("\r");
     	
         for (String line  : strJugglers) {
-        	Juggler currentJuggler = new Juggler(line);
+        	Juggler currentJuggler = new Juggler(line, circuits);
         	Jugglers.put(currentJuggler.getId(), currentJuggler);
          }
     	

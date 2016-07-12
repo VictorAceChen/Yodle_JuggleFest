@@ -1,11 +1,12 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Circuit {
 	private int id;
 	private int H;
 	private int E;
 	private int P;
-	private ArrayList<Juggler> performers = new ArrayList<Juggler>();
+	private ArrayList<Juggler> jugglers = new ArrayList<Juggler>();
 	
 	public Circuit(String str){
 		String[] strCircuit = str.split(" ");
@@ -39,30 +40,58 @@ public class Circuit {
 		return P;
 	}
 	
-	private int scoreJuggler(){
-		return 0;
+	public int scoreJuggler(Juggler juggler){
+		return this.getH() * juggler.getH() +
+			this.getE() * juggler.getE() +
+			this.getP() * juggler.getP();
 	}
 	
 	public Juggler assignJuggler(Juggler juggler, int circuitMaxSize){
 		
-		if(performers.size() > 0){
-			performers.add(juggler);
+		
+		for( int i = 0; i < jugglers.size(); i++){
+			
+			Juggler current = jugglers.get(i);
+			
+//			insert into circuit at appropriate score
+			if(this.scoreJuggler(juggler) > this.scoreJuggler(current)){
+				this.jugglers.add(i, juggler);
+				
+				if(jugglers.size() >= circuitMaxSize){
+					return jugglers.remove(jugglers.size() - 1);
+				}else{
+					return null;
+				}
+			}
+		}
+
+		if(jugglers.size() < circuitMaxSize){
+			jugglers.add(juggler);
 			return null;
 		}
-		
-		for( int i = 0; i < performers.size() - 1; i++){
-			
-		}
-		
-		
-		return null;
+		return juggler;
+	}
+	
+	public String getScore(){
+		return 	"C" + this.id + " " +
+				this.jugglers.stream()
+				.map( juggler -> juggler.getScore())
+				.collect(Collectors.joining(","));
+	}
+	
+	public void print2(){
+    	System.out.println(this.getScore());
 	}
 	
 	public void print(){
-    	System.out.print("id:" + this.id);
+    	System.out.print("C"+ this.id);
     	System.out.print(" H:" + this.H);
     	System.out.print(" E:" + this.E);
     	System.out.println(" P:" + this.P);
+		for(Juggler juggler : jugglers){
+			juggler.print();
+		}
+    	System.out.println();
 	}
 	
     public static Hashtable<Integer, Circuit> string2CircuitsHash(String str) {

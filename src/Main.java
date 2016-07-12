@@ -13,13 +13,14 @@ public class Main {
     	Hashtable<Integer, Circuit> circuits 
     		= Circuit.string2CircuitsHash(fileOutPut[0]);
     	Hashtable<Integer, Juggler> jugglers 
-    		= Juggler.string2JugglersHash(fileOutPut[1]);
+    		= Juggler.string2JugglersHash(fileOutPut[1], circuits);
 
 //    	Circuits.get(2).print();
 //    	Jugglers.get(2).print();
 
     	Performance performance = new Performance(circuits, jugglers);
-    	
+    	performance.assignJugglers();
+    	performance.print();
     			
 	}
 
