@@ -39,6 +39,10 @@ public class Circuit {
 	public int getP() {
 		return P;
 	}
+
+	public ArrayList<Juggler> getJugglers() {
+		return jugglers;
+	}
 	
 	public int scoreJuggler(Juggler juggler){
 		return this.getH() * juggler.getH() +
@@ -47,28 +51,29 @@ public class Circuit {
 	}
 	
 	public Juggler assignJuggler(Juggler juggler, int circuitMaxSize){
-		
-		
+
+//		insert Juggler to circuit by score rank
 		for( int i = 0; i < jugglers.size(); i++){
 			
-			Juggler current = jugglers.get(i);
+			Juggler idxJuggler = jugglers.get(i);
 			
-//			insert into circuit at appropriate score
-			if(this.scoreJuggler(juggler) > this.scoreJuggler(current)){
+			if(this.scoreJuggler(juggler) > this.scoreJuggler(idxJuggler)){
 				this.jugglers.add(i, juggler);
 				
-				if(jugglers.size() >= circuitMaxSize){
+				if(jugglers.size() > circuitMaxSize){
 					return jugglers.remove(jugglers.size() - 1);
 				}else{
 					return null;
 				}
 			}
 		}
-
+		
+//		join circuit if there is space
 		if(jugglers.size() < circuitMaxSize){
 			jugglers.add(juggler);
 			return null;
 		}
+//		never had a chance
 		return juggler;
 	}
 	
@@ -76,10 +81,10 @@ public class Circuit {
 		return 	"C" + this.id + " " +
 				this.jugglers.stream()
 				.map( juggler -> juggler.getScore())
-				.collect(Collectors.joining(","));
+				.collect(Collectors.joining(", "));
 	}
 	
-	public void print2(){
+	public void output(){
     	System.out.println(this.getScore());
 	}
 	
@@ -89,6 +94,7 @@ public class Circuit {
     	System.out.print(" E:" + this.E);
     	System.out.println(" P:" + this.P);
 		for(Juggler juggler : jugglers){
+			System.out.print("|");
 			juggler.print();
 		}
     	System.out.println();

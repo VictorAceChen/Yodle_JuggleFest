@@ -66,12 +66,7 @@ public class Juggler {
 	}
 	
 	public void print(){
-//		for(Circuit circuit : this.preference){
-//			System.out.print(
-//					"C"+ circuit.getId() + ":" + circuit.scoreJuggler(this)
-//					);
-//		}
-    	System.out.println("J" + this.id);
+    	System.out.print("J" + this.id);
 	}
 	
     public static Hashtable<Integer, Juggler> string2JugglersHash(

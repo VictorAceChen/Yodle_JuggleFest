@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 import java.io.FileInputStream;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -15,13 +16,16 @@ public class Main {
     	Hashtable<Integer, Juggler> jugglers 
     		= Juggler.string2JugglersHash(fileOutPut[1], circuits);
 
-//    	Circuits.get(2).print();
-//    	Jugglers.get(2).print();
-
     	Performance performance = new Performance(circuits, jugglers);
     	performance.assignJugglers();
-    	performance.print();
-    			
+    	
+    	writeList(circuits);
+    	
+    	int sum1970 = circuits.get(1970).getJugglers().stream()
+    			.mapToInt(juggler -> juggler.getId())
+    			.sum();
+    	
+    	System.out.println(sum1970 + "@yodle.com");
 	}
 
     private static String file2String(String fileName) {
@@ -51,5 +55,32 @@ public class Main {
                fileName + "'");                
        }
        return result;
+    }
+
+    private static void writeList(Hashtable<Integer, Circuit> circuits) {
+        PrintWriter out = null;
+        try {
+            System.out.println("Entering try statement");
+            out = new PrintWriter(new FileWriter("output.txt"));
+
+    		for(Circuit circuit : circuits.values())
+                out.println(circuit.getScore());
+
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Caught IndexOutOfBoundsException: "
+                               + e.getMessage());
+
+        } catch (IOException e) {
+            System.err.println("Caught IOException: " + e.getMessage());
+                                     
+        } finally {
+            if (out != null) {
+                System.out.println("Closing PrintWriter");
+                out.close();
+            } 
+            else {
+                System.out.println("PrintWriter not open");
+            }
+        }
     }
 }
