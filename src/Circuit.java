@@ -5,6 +5,7 @@ public class Circuit {
 	private int H;
 	private int E;
 	private int P;
+	private ArrayList<Juggler> performers = new ArrayList<Juggler>();
 	
 	public Circuit(String str){
 		String[] strCircuit = str.split(" ");
@@ -36,6 +37,25 @@ public class Circuit {
 
 	public int getP() {
 		return P;
+	}
+	
+	private int scoreJuggler(){
+		return 0;
+	}
+	
+	public Juggler assignJuggler(Juggler juggler, int circuitMaxSize){
+		
+		if(performers.size() > 0){
+			performers.add(juggler);
+			return null;
+		}
+		
+		for( int i = 0; i < performers.size() - 1; i++){
+			
+		}
+		
+		
+		return null;
 	}
 	
 	public void print(){

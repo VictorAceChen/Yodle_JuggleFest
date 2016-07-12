@@ -5,7 +5,7 @@ public class Juggler {
 	private int H;
 	private int E;
 	private int P;
-	private Set<Integer> preference = new HashSet<Integer>();
+	private ArrayList<Integer> preference = new ArrayList<Integer>();
 	
 	public Juggler(String str){
 		String[] strJuggler = str.split(" ");
@@ -49,11 +49,8 @@ public class Juggler {
     	System.out.print("id:" + this.id);
     	System.out.print(" H:" + this.H);
     	System.out.print(" E:" + this.E);
-    	System.out.print(" P:" + this.P + " ");
-    	
-        for (int id : this.set) {
-        	System.out.print(id + ",");
-         }
+    	System.out.print(" P:" + this.P);
+    	System.out.print(" " + this.preference);
     	System.out.println();
 	}
 	

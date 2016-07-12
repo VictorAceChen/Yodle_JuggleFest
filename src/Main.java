@@ -5,31 +5,24 @@ public class Main {
 
 	public static void main(String[] args) {
 
+//		get file input
     	String fileName = "input";
-    	String fileOutPut[] = file2String(fileName).split("\n\r");;
-//        System.out.println(fileOutPut[0]);
+    	String fileOutPut[] = file2String(fileName).split("\n\r");
     	
-    	Hashtable<Integer, Circuit> Circuits 
+//    	convert string input to circuits and jugglers
+    	Hashtable<Integer, Circuit> circuits 
     		= Circuit.string2CircuitsHash(fileOutPut[0]);
-    	Hashtable<Integer, Juggler> Jugglers 
+    	Hashtable<Integer, Juggler> jugglers 
     		= Juggler.string2JugglersHash(fileOutPut[1]);
 
 //    	Circuits.get(2).print();
-    	Jugglers.get(2).print();
+//    	Jugglers.get(2).print();
+
+    	Performance performance = new Performance(circuits, jugglers);
+    	
+    			
 	}
 
-    private static void getAllFiles(File curDir) {
-
-        File[] filesList = curDir.listFiles();
-        for(File f : filesList){
-            if(f.isDirectory())
-                getAllFiles(f);
-            if(f.isFile()){
-                System.out.println(f.getName());
-            }
-        }
-    }
-    
     private static String file2String(String fileName) {
     	String result = null;
 
